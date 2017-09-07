@@ -8,9 +8,18 @@
 # initialize vue project structure
 vue init webpack-simple stock-trader-project
 
-# cd in to new project, install node modules
+# cd in to new project
 cd stock-trader-project
+
+#install Node modules
 npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+```
+
+## Project installs
+``` sh
 
 # install babel stage 2 preset for spread modifier support
 npm install --save-dev babel-preset-stage-2
@@ -26,8 +35,17 @@ npm install --save-dev babel-plugin-syntax-dynamic-import
   "plugins": ["syntax-dynamic-import"]
 }
 
-# serve with hot reload at localhost:8080
-npm run dev
+#install Vue-Router for routing
+npm install --save vue-router
+
+#install Vuex for state management
+npm install --save vuex
+
+#install Axios for HTTP requests/REST api consumption
+npm install --save axios vue-axios
+
 ```
+
+
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
