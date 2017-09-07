@@ -42,12 +42,14 @@ export default {
 }
 
 .nav-btn {
+    @include noselect();
     padding: 5px 5px 5px 5px;
     background-color: $mid;
     font-family: $font2;
     color: black;
     cursor: pointer;
     height: 100%;
+    padding: 0 10px 0 10px;
     display: flex;
     justify-content: center;
     align-items: center;
