@@ -1,0 +1,25 @@
+@import './_variables.scss';
+
+.btn {
+    padding: 5px 5px 5px 4px;
+    background-color: $mid;
+    border-radius: 3px;
+    border: 1px solid $dark;
+    font-family: $font2;
+    color: $neutral;
+
+    &:focus {
+        outline:0;
+        background-color: $highlight;
+    }
+    &:active {
+        @include box-shadow(1px, 1px, 1px, $transDark);        
+        background-color: $darkerMid;
+        padding: 6px 4px 4px 5px;
+        // border: 1px double $dark;
+    }
+    
+}
+.text-center {
+    text-align: center;
+}

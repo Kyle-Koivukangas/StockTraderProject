@@ -1,0 +1,49 @@
+
+
+//----------- FONTS ------------\\
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed|Indie+Flower|Roboto|Roboto+Condensed');
+
+$font1: 'Encode Sans Semi Condensed', sans-serif;
+$font2: 'Roboto Condensed', sans-serif;
+$fancy-font: 'Indie Flower', cursive;
+
+
+
+//---------- COLORS ------------\\
+
+//palette (Generated from colormind.io)
+$dark: #265773;
+$mid: #4a7f92;
+$light: #c1d5da;
+$neutral: #f2e8dc;
+$accent: #f45822;
+
+//shifted darker palette
+$darkerDark: #183E53;
+$darkerMid: #365E6C;
+$darkerLight: #9CACB0;
+$darkerNeutral: #C4BAB0;
+$darkerAccent: #D04A1C;
+
+$highlight: #00ACD7;
+
+//translucents
+$transDark: rgba(20, 40, 60, .5);
+
+
+
+
+
+//----------- MIXINS -----------\\
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+@mixin box-shadow($a, $b, $c, $color) {
+    -moz-box-shadow:    inset $a $b $c $color;
+    -webkit-box-shadow: inset $a $b $c $color;
+    box-shadow:         inset $a $b $c $color;
+}
