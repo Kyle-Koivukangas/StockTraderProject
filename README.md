@@ -4,7 +4,7 @@
 
 ## Build setup commands
 
-``` bash
+``` sh
 # initialize vue project structure
 vue init webpack-simple stock-trader-project
 
@@ -14,18 +14,18 @@ npm install
 
 # install babel stage 2 preset for spread modifier support
 npm install --save-dev babel-preset-stage-2
-```sh
+#insert this in to .babelrc
 {
   "presets": ["stage-2"]
 }
-```
+
 # install dynamic import syntax, for dynamic import support
 npm install --save-dev babel-plugin-syntax-dynamic-import
-```sh
+#insert this in to .babelrc
 {
   "plugins": ["syntax-dynamic-import"]
 }
-```
+
 # serve with hot reload at localhost:8080
 npm run dev
 ```
