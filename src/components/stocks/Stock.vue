@@ -28,7 +28,7 @@
                         <input id="quantity" type="number" name="quantity" v-model="quantity">
                         <br> <br>
                         <p class="text-center">Purchase {{ quantity }} {{ stock.ticker }} shares <br><br> for 
-                        {{ stock.price * quantity | currencyFilter }}</p>
+                        {{ stock.price * quantity | currency }}</p>
                     </div>
 
                     <div class="buy-button-footer" slot="footer">
@@ -70,19 +70,6 @@ export default {
 
             this.$store.dispatch('buyStock', order);
         }
-    },
-    filters: {
-        currencyFilter(value, currency = '$', decimals = 2) {
-            value = parseFloat(value)
-            if (!isFinite(value) || (!value && value !== 0)) return ''
-            var stringified = Math.abs(value).toFixed(decimals)
-            var _int = stringified.slice(0, -1 - decimals)
-            var i = _int.length % 3
-            var head = i > 0 ? (_int.slice(0, i) + (_int.length > 3 ? ' ' : '')) : ''
-            var _float = stringified.slice(-1 - decimals)
-            var sign = value < 0 ? '-' : ''
-            return sign + currency + head + _int.slice(i) + _float
-        },
     }
 }
 </script>
