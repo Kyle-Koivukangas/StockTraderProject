@@ -3,7 +3,7 @@
         <h2 class="text-center">Stock Information</h2>
         <hr style="width: 90%;">
         <div class="stocks-grid">
-            <app-stock v-for="stock in stocks" :key="stock" :stock="stock"></app-stock>
+            <app-stock v-for="stock in stocks" :key="1" :stock="stock"></app-stock>
         </div>
     </div>
 </template>
@@ -41,7 +41,7 @@ export default {
 
 .stocks-grid {
     display: grid;
-    @include mq('phone-wide') {
+    @include mq('phablet') {
         grid-template: repeat(2, 1fr) / repeat(2, 1fr);
     }
     @include mq('tablet') {

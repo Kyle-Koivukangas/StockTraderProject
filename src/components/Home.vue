@@ -1,7 +1,7 @@
 <template>
     <div class="component-container">
         <div class="title-box">
-            <h1 class="text-center">Stock Trader Home</h1>
+            <h2 class="text-center">Stock Trader Home</h2>
             <hr>
         </div>
 
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../styles/_variables.scss';
 
 .title-box {

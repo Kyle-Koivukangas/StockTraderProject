@@ -34,7 +34,7 @@ export default {
 @import '../styles/_variables.scss';
 
 .active {
-    background-color: $darkerMid !important;
+    background-color: $darkerDark !important;
     color: $lightFontColor !important; // text-decoration: underline !important;   
 }
 
@@ -48,7 +48,7 @@ export default {
     }
     & a h3 {
         font-weight: 900;
-        color: #223;
+        color: #111;
         margin: auto;
         
     }
@@ -63,7 +63,7 @@ export default {
     font-family: $font1;
     font-weight: 500;
     color: black;
-    background-color: $mid;
+    background-color: $dark;
 }
 
 .navbox-left {
@@ -75,7 +75,7 @@ export default {
 .nav-btn {
     @include noselect();
     padding: 5px 5px 5px 5px;
-    background-color: $mid;
+    background-color: $dark;
     font-family: $font2;
     text-decoration: none;
     color: black;
@@ -90,11 +90,11 @@ export default {
         color: inherit;
     }
     & a:focus {
-        outline: 0;
-        text-decoration: underline;
+        outline: 1;
+        text-decoration: bold;
     }
     &:active {
-        background-color: $darkerMid;
+        background-color: $darkerDark;
     }
 }
 </style>

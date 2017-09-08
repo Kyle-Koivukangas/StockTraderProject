@@ -2,19 +2,19 @@
 
 .btn {
     padding: 5px 5px 5px 4px;
-    background-color: $mid;
+    background-color: $accent;
     border-radius: 3px;
-    border: 1px solid $dark;
+    border: 0px solid $dark;
     font-family: $font2;
     color: $lightFontColor;
 
     &:focus {
         outline:0;
-        background-color: $highlight;
+        background-color: $accentLight;
     }
     &:active {
-        @include box-shadow(1px, 1px, 1px, $transDark);        
-        background-color: $darkerMid;
+        @include box-shadow(1px, 1px, 1px, $transDark, inset);        
+        background-color: $darkerAccent;
         padding: 6px 4px 4px 5px;
         // border: 1px double $dark;
     }
