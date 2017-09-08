@@ -1,9 +1,18 @@
 <template>
     <div class="navbar">
-        <router-link to="/" class="nav-btn" tag="li" active-class="active" exact><a>Home</a></router-link>
-        <router-link v-for="(link, linkName) in links" :key="linkName" :to="link" class="nav-btn" tag="li" active-class="active">
-            <a>{{ linkName }}</a>
-        </router-link>
+        <div class="navbox-left">
+            <div class="navbrand">
+                <router-link to="/" tag="a">
+                    <h3>Stock Trader</h3>
+                </router-link>
+            </div>
+            <router-link to="/" class="nav-btn nav-brand" tag="li" active-class="active" exact>
+                <a>Home</a>
+            </router-link>
+            <router-link v-for="(link, linkName) in links" :key="linkName" :to="link" class="nav-btn" tag="li" active-class="active">
+                <a>{{ linkName }}</a>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -26,20 +35,41 @@ export default {
 
 .active {
     background-color: $darkerMid !important;
-    color: $lightFontColor !important;
-    // text-decoration: underline !important;   
+    color: $lightFontColor !important; // text-decoration: underline !important;   
+}
+
+.navbrand {
+        margin: auto;
+        padding: 10px;
+    
+    & a {
+        text-decoration: none;
+        
+    }
+    & a h3 {
+        font-weight: 900;
+        color: #223;
+        margin: auto;
+        
+    }
 }
 
 .navbar {
+    @include box-shadow(0px, 0px, 8px, black);
     height: 50px;
-    overflow: hidden;
-    display: flex;
+    overflow: hidden; // display: flex;
     justify-content: center;
     align-items: center;
     font-family: $font1;
     font-weight: 500;
     color: black;
     background-color: $mid;
+}
+
+.navbox-left {
+    height: 100%;
+    float: left;
+    display: flex; // float: left;
 }
 
 .nav-btn {
