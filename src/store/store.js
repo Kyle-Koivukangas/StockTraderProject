@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import portfolio from './modules/portolio.js';
+import portfolio from './modules/portfolio.js';
 import stocks from './modules/stocks.js';
 
 
-Vue.use(vuex);
+Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
     state: {
         
     },

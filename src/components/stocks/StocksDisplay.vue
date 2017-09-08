@@ -14,25 +14,16 @@ import { mapGetters } from 'vuex';
 export default {
     data() {
         return {
-            stocksList: ['Google', 'IBM', 'Apple', 'HP', 'company1', 'company2', 'company3', 'company4'],
-            stocks: [
-                { id: 1, name: 'Tesla', ticker: 'HP', price: 249.64 },
-                { id: 2, name: 'Google', ticker: 'GOOGL', price: 111.97 },
-                { id: 3, name: 'IBM', ticker: 'AAPL', price: 83.04 },
-                { id: 4, name: 'Apple', ticker: 'IBM', price: 95.06 },
-                { id: 5, name: 'HP', ticker: 'HP', price: 65.78 },
-            ]
         }
     },
     components: {
         appStock: () => import('./Stock.vue'),
     },
-    // computed: {
-    //     ...mapGetters(['stocksList']),
-    //     getStocks() {
-    //         return this.$store.state.stocksList;
-    //     }
-    // }
+    computed: {
+        stocks() {
+            return this.$store.getters.stocks;
+        }
+    }
 }
 </script>
 
