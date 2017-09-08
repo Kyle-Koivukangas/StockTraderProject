@@ -18,19 +18,20 @@
             </div>
 
             <transition name="fade">
-                <app-buy-modal v-if="showModal" :show="showModal" @close="showModal = false">
+                <app-buy-modal v-if="showModal" :show="showModal" @close="showModal = false; quantity = 5">
                     <div slot="header" class="buy-header">
-                        <h3  class="text-center">Purchase {{ stock.name }} Stock</h3>
-
+                        <h3 class="text-center">Purchase {{ stock.name }} Stock</h3>
                     </div>
+
                     <div class="buy-options text-center" slot="body">
-                        <label for="amount">Amount of shares: </label>
-                        <input id="amount" type="number" name="quantity" v-model="amount">
-                        <br> <br> <br> Purchase {{ amount }} {{ stock.ticker }} shares?
+                        <label for="quantity">quantity of shares: </label>
+                        <input id="quantity" type="number" name="quantity" v-model="quantity">
+                        <br> <br> 
+                        <p class="text-center">Purchase {{ quantity }} {{ stock.ticker }} shares for ${{ (quantity * stock.price).toFixed(2) }}</p>
                     </div>
 
                     <div class="buy-button-footer" slot="footer">
-                        <button class="purchase-button">Purchase</button>
+                        <button class="btn purchase-button" @click="buyStock()">Purchase</button>
                     </div>
                 </app-buy-modal>
             </transition>
@@ -52,7 +53,7 @@ export default {
             },
             stockChange: "up 0.54",
             showModal: false,
-            amount: 5,
+            quantity: 5,
         }
     },
     components: {
@@ -63,10 +64,11 @@ export default {
             const order = {
                 stockId: this.stock.id,
                 stockPrice: this.stock.price,
-                quantity: this.stock.quantity
+                quantity: this.quantity
             }
+
         }
-    }
+    },
 }
 </script>
 
@@ -79,6 +81,7 @@ export default {
     @include border-radius(3px);
     border: 1.2px solid $dark;
     padding-top: 0px;
+    @include box-shadow(2px, 2px, 3px, $transDark)
 }
 
 .stock-header {
@@ -100,6 +103,9 @@ export default {
     font-family: $font2;
     flex: 4;
 }
+#quantity {
+    width: 55px;
+}
 
 .options {
     display: flex;
@@ -116,12 +122,13 @@ export default {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
 }
+
 .buy-options {
-    margin-top: 20px;
     height: 100%;
-    width: 90%;
+    width: 100%;
     font-weight: 400;
     font-family: $font1;
+    margin: 20px 0 0 0;
 }
 
 .buy-button-footer {
