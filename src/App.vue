@@ -6,6 +6,8 @@
 </template>
 
 <script>
+require("font-awesome-webpack");
+
 export default {
     name: 'app',
     data() {
@@ -23,7 +25,11 @@ export default {
 @import './styles/_globalClasses.scss';
 
 #app {
-    background-color: $light;
+    background-color: $lightFontColor;
+    min-height: 800px;
+}
+
+.component-container {
 }
 
 </style>
