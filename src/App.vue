@@ -16,6 +16,9 @@ export default {
     },
     components: {
         appHeader: () => import('./components/Header.vue'),
+    },
+    created() {
+        this.$store.dispatch('initStocks');
     }
 }
 </script>
