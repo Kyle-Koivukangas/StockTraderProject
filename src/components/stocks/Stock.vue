@@ -22,12 +22,13 @@
                     <div slot="header" class="buy-header">
                         <h3 class="text-center">Purchase {{ stock.name }} Stock</h3>
                     </div>
-
+ 
                     <div class="buy-options text-center" slot="body">
                         <label for="quantity">quantity of shares: </label>
                         <input id="quantity" type="number" name="quantity" v-model="quantity">
-                        <br> <br> 
-                        <p class="text-center">Purchase {{ quantity }} {{ stock.ticker }} shares for ${{ (quantity * stock.price).toFixed(2) }}</p>
+                        <br> <br>
+                        <p class="text-center">Purchase {{ quantity }} {{ stock.ticker }} shares <br><br> for 
+                        {{ stock.price * quantity | currencyFilter }}</p>
                     </div>
 
                     <div class="buy-button-footer" slot="footer">
@@ -47,8 +48,6 @@ export default {
     data() {
         return {
             exampleInfo: {
-                ticker: "TICKER",
-                price: "$50.54",
                 change: "Down .50"
             },
             stockChange: "up 0.54",
@@ -62,13 +61,29 @@ export default {
     methods: {
         buyStock() {
             const order = {
-                stockId: this.stock.id,
+                stockTicker: this.stock.ticker,
                 stockPrice: this.stock.price,
-                quantity: this.quantity
+                quantity: parseInt(this.quantity),
+                date: Date.now()
             }
+            console.log(order);
 
+            this.$store.dispatch('buyStock', order);
         }
     },
+    filters: {
+        currencyFilter(value, currency = '$', decimals = 2) {
+            value = parseFloat(value)
+            if (!isFinite(value) || (!value && value !== 0)) return ''
+            var stringified = Math.abs(value).toFixed(decimals)
+            var _int = stringified.slice(0, -1 - decimals)
+            var i = _int.length % 3
+            var head = i > 0 ? (_int.slice(0, i) + (_int.length > 3 ? ' ' : '')) : ''
+            var _float = stringified.slice(-1 - decimals)
+            var sign = value < 0 ? '-' : ''
+            return sign + currency + head + _int.slice(i) + _float
+        },
+    }
 }
 </script>
 
@@ -103,6 +118,7 @@ export default {
     font-family: $font2;
     flex: 4;
 }
+
 #quantity {
     width: 55px;
 }
