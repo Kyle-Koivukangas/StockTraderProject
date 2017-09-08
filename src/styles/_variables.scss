@@ -29,7 +29,7 @@ $lightFontColor:#F3F0EE;
 $highlight: #00ACD7;
 
 //translucents
-$transDark: rgba(20, 40, 60, .5);
+$transDark: rgba(0, 10, 35, .3);
 
 
 
@@ -43,10 +43,16 @@ $transDark: rgba(20, 40, 60, .5);
         -ms-border-radius: $radius;
             border-radius: $radius;
 }
-@mixin box-shadow($a, $b, $c, $color) {
-    -moz-box-shadow:    inset $a $b $c $color;
-    -webkit-box-shadow: inset $a $b $c $color;
-    box-shadow:         inset $a $b $c $color;
+@mixin box-shadow($a, $b, $c, $color, $inset: false) {
+    @if $inset == true or $inset == inset {
+        -moz-box-shadow:    inset $a $b $c $color;
+        -webkit-box-shadow: inset $a $b $c $color;
+        box-shadow:         inset $a $b $c $color;
+    } @else {
+        -moz-box-shadow:    $a $b $c $color;
+        -webkit-box-shadow: $a $b $c $color;
+        box-shadow:         $a $b $c $color;
+    }
 }
 @mixin noselect() {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -57,3 +63,64 @@ $transDark: rgba(20, 40, 60, .5);
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
   }
+
+@mixin center--auto {
+    margin: { 
+        left: auto;
+        right: auto;
+    }
+}
+
+//for keeping ratio of background images the same
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+    $padding: unquote( ( $y / $x ) * 100 + '%' );
+    @if $pseudo {
+        &:before {
+            @include pseudo($pos: relative);
+            width: 100%;
+            padding-top: $padding;
+        }
+    } @else {
+        padding-top: $padding;
+    }
+}
+//example of responsive ratio in use:
+// div {
+//     @include responsive-ratio(16,9);
+// }
+
+
+
+//media query mixin
+$breakpoints: (
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px
+);
+@mixin mq($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+//example of using this mixin:
+// .site-header {
+//     padding: 2rem;
+//     font-size: 1.8rem;
+//     @include mq('tablet-wide') {
+//         padding-top: 4rem;
+//         font-size: 2.4rem;
+//     }
+// }
+
+
