@@ -18,10 +18,10 @@ export default new Vuex.Store({
 
     },
     actions: {
-        grabUserInfo: (context, userName) => {
+        grabUserInfo: (context, userId) => {
             console.log('DATA BEFORE AJAX CALL');
             console.log(context.getters.ownedStocks);
-            const userURL = "https://vuejscomplete-http.firebaseio.com/users/" + userName + ".json";            
+            const userURL = "users/" + userId + ".json";            
             const userImport = axios.get(userURL)
                 .then( response => {
                     console.log('HTTP RESPONSE: ');
@@ -42,7 +42,7 @@ export default new Vuex.Store({
                     
                     context.commit('SET_FUNDS', data.funds);                
                     context.commit('SET_OWNED_STOCKS', data.ownedStocks);
-                    context.commit('SET_TRANSACTIONS', JSON.parse(data.transactions));
+                    context.commit('SET_TRANSACTIONS', data.transactions);
                 })
         }
     },

@@ -10,7 +10,6 @@ const getters = {
     stocks: state => {
         return state.stocks
     }
-
 }
 const mutations = {
     'SET_STOCKS'(state, stocks) {
@@ -26,7 +25,7 @@ const actions = {
         commit('BUY_STOCK', order);
     },
     initStocks: ({ commit }) => {
-        const stockImport = axios.get("https://vuejscomplete-http.firebaseio.com/stocksInit.json")
+        const stockImport = axios.get("stocksInit.json")
             .then(response => {
                 return response.data;
             })

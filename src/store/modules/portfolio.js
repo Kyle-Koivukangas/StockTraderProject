@@ -2,8 +2,9 @@
 const state = {
     funds: 10000,
     ownedStocks: [],
-    transactions: [{ "orderType": "BUY", "stockTicker": "IBM", "quantity": 5, "stockPrice": 83.04, "date": '2017/09/09' }],
+    transactions: [{ "orderType": "BUY", "stockTicker": "IBM", "quantity": 5, "stockPrice": 83.04, "date": "2017/09/09" }],
     date: '2017/09/09',
+    userId: 0,
 }
 const getters = {
     ownedStocks: state => {
@@ -22,6 +23,9 @@ const getters = {
     getLastDate: state => {
         const lastTransaction = state.transactions[state.transactions.length-1];
         return lastTransaction.date
+    },
+    getUserId: state => {
+        return state.userId
     }
 }
 const mutations = {

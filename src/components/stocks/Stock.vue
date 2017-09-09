@@ -67,6 +67,7 @@ export default {
                 date: (new Date()).toISOString().slice(0,10).replace(/-/g,"/")
             }
             this.$store.dispatch('buyStock', order);
+            // axios.post()
         }
     }
 }

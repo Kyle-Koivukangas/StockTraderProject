@@ -9,6 +9,9 @@ import store from './store/store.js'
 
 //Vue use:
 Vue.use(VueAxios, axios);
+axios.defaults.baseURL = 'https://vuejscomplete-http.firebaseio.com/';
+
+
 Vue.use(VueRouter);
 
 

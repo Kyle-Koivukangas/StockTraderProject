@@ -17,11 +17,16 @@ export default {
     components: {
         appHeader: () => import('./components/Header.vue'),
     },
+    computed: {
+        userName() {
+            return this.$store.getters.getUserId;
+        }
+    },
     created() {
         //init the store data
         this.$store.dispatch('initStocks');
         // this.$store.dispatch('initDate');
-        this.$store.dispatch('grabUserInfo', 0);
+        this.$store.dispatch('grabUserInfo', this.userName);
     }
 }
 </script>
