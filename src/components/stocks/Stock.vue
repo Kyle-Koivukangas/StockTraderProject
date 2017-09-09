@@ -48,7 +48,7 @@ export default {
     data() {
         return {
             exampleInfo: {
-                change: "Down .50"
+            change: "Down .50"
             },
             stockChange: "up 0.54",
             showModal: false,
@@ -66,8 +66,6 @@ export default {
                 quantity: parseInt(this.quantity),
                 date: (new Date()).toISOString().slice(0,10).replace(/-/g,"/")
             }
-            console.log(order);
-
             this.$store.dispatch('buyStock', order);
         }
     }

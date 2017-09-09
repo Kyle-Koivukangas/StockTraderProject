@@ -1,7 +1,5 @@
 <template>
     <div class="table-container">
-        <h4>columns: {{ columns }}</h4>
-        <p>{{sortOrders}}</p>
         <table>
             <thead>
                 <tr>
@@ -83,10 +81,10 @@ export default {
         }
     },
     created() {
-        const columns = this.columns;
-        this.columns.forEach((columns) => {
-            this.sortOrders[columns] = 1
-        })
+        const cols = this.columns;
+        this.columns.forEach(cols => {
+            this.sortOrders[cols] = 1
+        });
     }
 }
 </script>

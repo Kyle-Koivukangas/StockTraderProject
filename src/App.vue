@@ -18,7 +18,9 @@ export default {
         appHeader: () => import('./components/Header.vue'),
     },
     created() {
+        //init the store data
         this.$store.dispatch('initStocks');
+        // this.$store.dispatch('initDate');
     }
 }
 </script>

@@ -8,17 +8,21 @@
 
         <div class="content">
             <div class="title-box">
+                <p class="date">Date: {{ getLastDate }}</p>
                 <h4>Funds: {{ funds.toFixed(2) }}</h4>
             </div>
 
             <div class="owned-stocks">
-                <app-stock v-for="stock in ownedStocks" :key="stock" :stock="stock"></app-stock>
+                <h3>Your Stocks:</h3>
+                <ul>
+                    <li v-for="(stock, index, key) in ownedStocks" :key="key">
+                        <app-stock :stock="stock"></app-stock>
+                    </li>
+                </ul>
             </div>
-            <p>
-                {{ ownedStocks }}
-            </p>
-            {{ transactions }}
-            <app-transactions :transactions="transactions"></app-transactions>
+
+            <button @click="showTransHistory = !showTransHistory">Transaction History</button>
+            <app-transactions v-if="showTransHistory" :transactions="transactions"></app-transactions>
 
         </div>
     </div>
@@ -28,8 +32,13 @@
 import { mapGetters } from 'vuex';
 
 export default {
+    data() {
+        return {
+            showTransHistory: false,
+        }
+    },
     computed: {
-        ...mapGetters(['funds', 'ownedStocks', 'transactions'])
+        ...mapGetters(['funds', 'ownedStocks', 'transactions', 'getLastDate']),
     },
     components: {
         appStock: () => import('./Stock.vue'),
@@ -42,9 +51,9 @@ export default {
         addDays(date, days) {
             var dat = new Date(this.valueOf());
             dat.setDate(dat.getDate() + days);
-            return dat;
+            return dat
         }
-    },
+    }
 }
 </script>
 
@@ -65,5 +74,12 @@ export default {
     background-color: white;
     border: 1.2px solid $dark;
     @include border-radius(3px);
+}
+
+.date {
+    text-align: right;
+}
+.owned-stocks {
+    min-height: 150px;
 }
 </style>
