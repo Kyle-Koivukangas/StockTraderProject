@@ -17,7 +17,7 @@
             <p>
                 {{ ownedStocks }}
             </p>
-                {{ transactions }}
+            {{ transactions }}
             <app-transactions :transactions="transactions"></app-transactions>
 
         </div>
@@ -34,7 +34,17 @@ export default {
     components: {
         appStock: () => import('./Stock.vue'),
         appTransactions: () => import('./Transactions.vue')
-    }
+    },
+    methods: {
+        advanceDay() {
+            return null
+        },
+        addDays(date, days) {
+            var dat = new Date(this.valueOf());
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        }
+    },
 }
 </script>
 

@@ -2,7 +2,8 @@
 const state = {
     funds: 10000,
     ownedStocks: [],
-    transactions: [],
+    transactions: [{ "orderType": "BUY", "stockTicker": "IBM", "quantity": 5, "stockPrice": 83.04, "date": '2017/09/09' }],
+    date: '2017/09/09',
 }
 const getters = {
     ownedStocks: state => {
@@ -13,6 +14,10 @@ const getters = {
     },
     funds: state => {
         return state.funds
+    },
+    getLastDate: state => {
+        const lastTransaction = state.transactions[state.transactions.length-1];
+        return lastTransaction.date
     }
 }
 const mutations = {
@@ -28,7 +33,7 @@ const mutations = {
             })
         }
         state.funds -= stockPrice * quantity;
-        state.transactions.push({ order: 'BUY', stockTicker, quantity, stockPrice, date });
+        state.transactions.push({ orderType: 'BUY', stockTicker, quantity, stockPrice, date });
     },
     'SELL_STOCK'(state, { stockTicker, quantity, stockPrice, date }) {
         const record = state.ownedStocks.find(element => element.stockTicker == stockTicker);
@@ -39,13 +44,20 @@ const mutations = {
             console.log(record);
         }
         state.funds += stockPrice * quantity;
-        state.transactions.push({ order: 'SELL', stockTicker, quantity, stockPrice, date });
+        state.transactions.push({ orderType: 'SELL', stockTicker, quantity, stockPrice, date });
     },
+    'SET_DATE'(state, date) {
+        state.date = date;
+    }
 }
 const actions = {
     sellStock: ({ commit }, order) => {
         commit('SELL_STOCK', order)
     },
+    initDate: ({commit}) => {
+        const lastDate = state.getLastDate();
+        commit('SET_DATE', lastDate);
+    }
 }
 
 

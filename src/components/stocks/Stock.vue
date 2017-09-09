@@ -64,7 +64,7 @@ export default {
                 stockTicker: this.stock.ticker,
                 stockPrice: this.stock.price,
                 quantity: parseInt(this.quantity),
-                date: Date.now()
+                date: (new Date()).toISOString().slice(0,10).replace(/-/g,"/")
             }
             console.log(order);
 
