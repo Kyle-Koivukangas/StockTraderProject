@@ -8,6 +8,7 @@ import { routes } from './routes.js'
 import store from './store/store.js'
 
 //Vue use:
+Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
 
 
@@ -26,8 +27,6 @@ const router = new VueRouter({
 });
 
 
-//not useing axios yet, but this is here to remind me for now
-// Vue.use(VueAxios, axios);
 
 
 Vue.filter('currency', function (value, currency = '$', decimals = 2) {

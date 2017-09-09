@@ -7,6 +7,10 @@ const state = {
 }
 const getters = {
     ownedStocks: state => {
+        console.log('STATE OWNED STOCKS:');
+        
+        console.log(state.ownedStocks);
+        
         return state.ownedStocks
     },
     transactions: state => {
@@ -48,6 +52,15 @@ const mutations = {
     },
     'SET_DATE'(state, date) {
         state.date = date;
+    },
+    'SET_FUNDS'(state, funds) {
+        state.funds = funds;
+    },
+    'SET_OWNED_STOCKS'(state, stocks) {
+        state.ownedStocks = stocks;
+    },
+    'SET_TRANSACTIONS'(state, transactions) {
+        state.transactions = transactions;
     }
 }
 const actions = {

@@ -1,0 +1,10 @@
+
+
+{
+    "0": { "name": "Tesla", "ticker": "TSLA", "price": 249.64 },
+    "1": { "name": "Google", "ticker": "GOOGL", "price": 111.97 },
+    "2": { "name": "IBM", "ticker": "IBM", "price": 83.04 },
+    "3": { "name": "Apple", "ticker": "AAPL", "price": 95.06 },
+    "4": { "name": "HP", "ticker": "HP", "price": 65.78 },
+    "5": { "name": "K-Tech", "ticker": "KT", "price": 6949.37}
+}

@@ -21,6 +21,7 @@ export default {
         //init the store data
         this.$store.dispatch('initStocks');
         // this.$store.dispatch('initDate');
+        this.$store.dispatch('grabUserInfo', 0);
     }
 }
 </script>

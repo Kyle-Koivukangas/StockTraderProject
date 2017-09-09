@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import stocksImport from '../../data/stocks.js';
 
 //stocks state store
@@ -11,22 +13,35 @@ const getters = {
 
 }
 const mutations = {
-    'SET_STOCKS' (state, stocks) {
+    'SET_STOCKS'(state, stocks) {
         state.stocks = stocks;
     },
-    'RAND_STOCKS' (state) {
+    'RAND_STOCKS'(state) {
         console.log('No Randomize stocks mutation');
-        
+
     }
 }
 const actions = {
-    buyStock: ({commit}, order) => {
+    buyStock: ({ commit }, order) => {
         commit('BUY_STOCK', order);
     },
-    initStocks: ({commit}) => {
-        commit('SET_STOCKS', stocksImport);
+    initStocks: ({ commit }) => {
+        const stockImport = axios.get("https://vuejscomplete-http.firebaseio.com/stocksInit.json")
+            .then(response => {
+                return response.data;
+            })
+            .then(function commitData(data) {
+                console.log('data:');
+                console.log(data);
+                const resultArray = [];
+                for (let key in data) {
+                    resultArray.push(data[key]);
+                }
+                console.log(resultArray);
+                commit('SET_STOCKS', data);
+            });
     },
-    randomizeStocks: ({commit}) => {
+    randomizeStocks: ({ commit }) => {
         commit('RAND_STOCKS');
     }
 }
