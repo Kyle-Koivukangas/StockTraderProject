@@ -24,29 +24,26 @@ const getters = {
         const lastTransaction = state.transactions[state.transactions.length-1];
         return lastTransaction.date
     },
-    getUserId: state => {
+    userId: state => {
+        console.log('RETUN USERiD');
         return state.userId
     }
 }
 const mutations = {
     'BUY_STOCK'(state, { stockTicker, quantity, stockPrice, date }) {
-        const record = state.ownedStocks.find(element => element.stockTicker == stockTicker);
+        const record = Object.keys(state.ownedStocks);
         console.log(`record: ${record}`);
-        if (record) {
-            record.quantity += quantity;
+        if (stockTicker in record) {
+            stockTicker += quantity;
         } else {
-            state.ownedStocks.push({
-                stockTicker: stockTicker,
-                quantity: quantity,
-            })
+            state.ownedStocks[stockTicker] = quantity
         }
         state.funds -= stockPrice * quantity;
-        state.transactions.push({ orderType: 'BUY', stockTicker, quantity, stockPrice, date });
     },
     'SELL_STOCK'(state, { stockTicker, quantity, stockPrice, date }) {
-        const record = state.ownedStocks.find(element => element.stockTicker == stockTicker);
-        if (record.quantity >= quantity) {
-            record.quantity -= quantity;
+        const record = Object.keys(state.ownedStocks);
+        if (stockTicker in record) {
+            stockTicker -= quantity;
         } else {
             console.log(`not enough stock to sell that many ${record}`)
             console.log(record);
@@ -65,6 +62,10 @@ const mutations = {
     },
     'SET_TRANSACTIONS'(state, transactions) {
         state.transactions = transactions;
+    },
+    'SYNC_DB'(state, data) {
+        state.transactions = data.transactions;
+        state.funds = data.funds;
     }
 }
 const actions = {

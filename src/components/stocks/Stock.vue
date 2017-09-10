@@ -22,13 +22,12 @@
                     <div slot="header" class="buy-header">
                         <h3 class="text-center">Purchase {{ stock.name }} Stock</h3>
                     </div>
- 
+
                     <div class="buy-options text-center" slot="body">
                         <label for="quantity">quantity of shares: </label>
                         <input id="quantity" type="number" name="quantity" v-model="quantity">
                         <br> <br>
-                        <p class="text-center">Purchase {{ quantity }} {{ stock.ticker }} shares <br><br> for 
-                        {{ stock.price * quantity | currency }}</p>
+                        <p class="text-center">Purchase {{ quantity }} {{ stock.ticker }} shares <br><br> for {{ stock.price * quantity | currency }}</p>
                     </div>
 
                     <div class="buy-button-footer" slot="footer">
@@ -48,7 +47,7 @@ export default {
     data() {
         return {
             exampleInfo: {
-            change: "Down .50"
+                change: "Down .50"
             },
             stockChange: "up 0.54",
             showModal: false,
@@ -64,7 +63,8 @@ export default {
                 stockTicker: this.stock.ticker,
                 stockPrice: this.stock.price,
                 quantity: parseInt(this.quantity),
-                date: (new Date()).toISOString().slice(0,10).replace(/-/g,"/")
+                date: (new Date()).toISOString().slice(0, 10).replace(/-/g, "/"),
+                orderType: 'BUY'
             }
             this.$store.dispatch('buyStock', order);
             // axios.post()
