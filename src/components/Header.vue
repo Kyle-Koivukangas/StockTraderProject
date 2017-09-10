@@ -14,20 +14,23 @@
             </router-link>
         </div>
         <div class="navbox-right">
-            <dropdown :visible="visible" :position="position" @clickOut="visible = !visible" v-if="!loginStatus">
+            <dropdown animation="ani-slide-y" :visible="visible" :position="position" @clickOut="visible = !visible" v-if="!loginStatus">
                 <div class="nav-btn" @click="visible = !visible">
                     <div class="login-btn">Login</div>
                 </div>
                 <div slot="dropdown" class="dialog">
                     <form v-on:submit.prevent="login">
+                        <span>Enter your information</span>
                         <input type="text" placeholder="User Name">
-                        <input type="password" placeholder="password">
+                        <input type="password" placeholder="password" @keydown.enter="">
                         <button @click="visible=false">Submit</button>
                     </form>
                 </div>
             </dropdown>
-            <div class="nav-btn" v-if="loginStatus">
-                <div class="login-btn" @click="logout">Logout</div>
+
+            <div class="nav-btns" v-if="loginStatus">
+                <div class="nav-btn login-btn" @click="newDay">New Day</div>
+                <div class="nav-btn login-btn" @click="logout">Logout</div>
             </div>
         </div>
     </div>
@@ -129,6 +132,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     & a {
         text-decoration: inherit;
@@ -146,6 +150,12 @@ export default {
 .navbox-right {
     float: right;
     margin: auto 10px auto 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-btns {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,5 +181,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.nday-btn {
+    margin: auto 10px auto 0;
+    cursor: pointer;
 }
 </style>
