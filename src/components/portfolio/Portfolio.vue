@@ -6,7 +6,11 @@
 
         </div>
 
-        <div class="content">
+        <div class="login-note" v-if="!loginStatus">
+            <h3 class="text-center">Please log in to view your stock portfolio...</h3>
+        </div>
+
+        <div class="content" v-if="loginStatus">
             <div class="title-box">
                 <p class="date">Date: {{ getLastDate }}</p>
                 <h4>Funds: {{ funds.toFixed(2) }}</h4>
@@ -38,7 +42,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['funds', 'ownedStocks', 'transactions', 'getLastDate', 'showTransactions']),
+        ...mapGetters(['loginStatus', 'funds', 'ownedStocks', 'transactions', 'getLastDate', 'showTransactions']),
     },
     components: {
         appStock: () => import('./Stock.vue'),
@@ -84,5 +88,18 @@ export default {
 }
 .owned-stocks {
     min-height: 150px;
+}
+.login-note {
+    margin: auto;
+    width: 50%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555;
+    font-family: $font2;
+    // background-color: $transLight;
+    // border: 1px solid $transDark;
+    // @include border-radius(3px);
 }
 </style>

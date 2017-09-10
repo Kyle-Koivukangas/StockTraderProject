@@ -13,7 +13,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="options">
+            <div class="options" v-if="loginStatus">
                 <button id="show-modal" @click="showModal = true" class="btn">Buy</button>
             </div>
 
@@ -56,6 +56,11 @@ export default {
     },
     components: {
         appBuyModal: () => import('./BuyModal.vue')
+    },
+    computed: {
+        loginStatus() {
+            return this.$store.getters.loginStatus
+        }
     },
     methods: {
         buyStock() {
