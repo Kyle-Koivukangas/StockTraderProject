@@ -1,5 +1,6 @@
 //portfolio state store
 const state = {
+    showTransactions: false,
     funds: 10000,
     ownedStocks: [],
     transactions: [{ "orderType": "BUY", "stockTicker": "IBM", "quantity": 5, "stockPrice": 83.04, "date": "2017/09/09" }],
@@ -27,6 +28,9 @@ const getters = {
     userId: state => {
         console.log('RETUN USERiD');
         return state.userId
+    },
+    showTransactions: state => {
+        return state.showTransactions;
     }
 }
 const mutations = {
@@ -66,9 +70,15 @@ const mutations = {
     'SYNC_DB'(state, data) {
         state.transactions = data.transactions;
         state.funds = data.funds;
+    },
+    'TOGGLE_SHOW_TRANSACTIONS'(state) {
+        state.showTransactions = !state.showTransactions
     }
 }
 const actions = {
+    toggleShowTransactions({commit}) {
+        commit('TOGGLE_SHOW_TRANSACTIONS');
+    },
     sellStock: ({ commit }, order) => {
         commit('SELL_STOCK', order)
     },

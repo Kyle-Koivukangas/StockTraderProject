@@ -13,19 +13,66 @@
                 <a>{{ linkName }}</a>
             </router-link>
         </div>
+        <div class="navbox-right">
+            <dropdown :visible="visible" :position="position" @clickOut="visible = !visible" v-if="!loginStatus">
+                <div class="nav-btn" @click="visible = !visible">
+                    <div class="login-btn">Login</div>
+                </div>
+                <div slot="dropdown" class="dialog">
+                    <form v-on:submit.prevent="login">
+                        <input type="text" placeholder="User Name">
+                        <input type="password" placeholder="password">
+                        <button @click="visible=false">Submit</button>
+                    </form>
+                </div>
+            </dropdown>
+            <div class="nav-btn" v-if="loginStatus">
+                <div class="login-btn" @click="logout">Logout</div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import dropdown from 'vue-my-dropdown';
+
 export default {
     data() {
         return {
             links: {
                 'Stocks': '/stocks',
                 'Portfolio': '/portfolio'
-            }
+            },
+            position: ["right", "bottom", "right", "top"],
+            visible: false,
+            inputUser: 0,
+            inputPassword: null,
         }
-    }
+    },
+    components: {
+        dropdown
+    },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        },
+        user() {
+            return this.$store.getters.user;
+        },
+        loginStatus() {
+            return this.$store.getters.loginStatus
+        }
+    },
+    methods: {
+        login(user = 0) {
+            //placeholder login function, just sets user value in the store
+            this.$store.dispatch('login', user);
+        },
+        logout() {
+            this.$store.dispatch('logout');
+        }
+    },
 
 }
 </script>
@@ -39,18 +86,16 @@ export default {
 }
 
 .navbrand {
-        margin: auto;
-        padding: 10px;
-    
+    margin: auto;
+    padding: 10px;
+
     & a {
         text-decoration: none;
-        
     }
     & a h3 {
         font-weight: 900;
         color: #111;
         margin: auto;
-        
     }
 }
 
@@ -96,5 +141,35 @@ export default {
     &:active {
         background-color: $darkerDark;
     }
+}
+
+.navbox-right {
+    float: right;
+    margin: auto 10px auto 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog {
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: .8rem;
+    box-shadow: 1px 1px 6px 0 #999;
+}
+
+.login-btn {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 </style>

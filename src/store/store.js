@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+// import VuexFire from 'vuexfire'
+// import { firebaseMutations } from 'vuexfire'
+
 import portfolio from './modules/portfolio.js';
 import stocks from './modules/stocks.js';
 
@@ -9,15 +12,52 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        
+        isLoggedIn: false,
+        user: 0,
+        loginStatus: false
     },
     getters: {
-
+        user: state => {
+            return state.user;
+        },
+        isLoggedIn: state => {
+            return state.isLoggedIn;
+        },
+        loginStatus: state => {
+            return state.loginStatus
+        }
     },
     mutations: {
-
+        'SET_USER'(state, userId) {
+            state.user = userId;
+        },
+        'SET_LOGIN_STATUS'(state, status) {
+            state.loginStatus = status;
+        }
     },
     actions: {
+        // setUserRef: VuexFire
+        login({ commit }, userName) {
+            //placeholder login function, need to replace with proper functionality not jsut auto log in user 0
+            alert("logged in");
+            commit('SET_USER', userName);
+            commit('SET_LOGIN_STATUS', true);
+        },
+        logout({commit}) {
+            //placeholder logout function
+            commit('SET_LOGIN_STATUS', false);
+        },
+
+
+
+
+
+
+
+
+
+
+
         grabUserInfo: (context, userId) => {
             console.log('DATA BEFORE AJAX CALL');
             console.log(context.getters.ownedStocks);
