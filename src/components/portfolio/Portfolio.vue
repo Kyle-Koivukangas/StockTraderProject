@@ -21,8 +21,8 @@
                 </ul>
             </div>
 
-            <button @click="showTransHistory = !showTransHistory">Transaction History</button>
-            <app-transactions v-if="showTransHistory" :transactions="transactions"></app-transactions>
+            <button @click="toggleShowTransactions">Transaction History</button>
+            <app-transactions v-if="showTransactions" :transactions="transactions"></app-transactions>
 
         </div>
     </div>
@@ -34,17 +34,20 @@ import { mapGetters } from 'vuex';
 export default {
     data() {
         return {
-            showTransHistory: false,
+            showTransactionsy: false,
         }
     },
     computed: {
-        ...mapGetters(['funds', 'ownedStocks', 'transactions', 'getLastDate']),
+        ...mapGetters(['funds', 'ownedStocks', 'transactions', 'getLastDate', 'showTransactions']),
     },
     components: {
         appStock: () => import('./Stock.vue'),
         appTransactions: () => import('./Transactions.vue')
     },
     methods: {
+        toggleShowTransactions() {
+            this.$store.dispatch('toggleShowTransactions');
+        },
         advanceDay() {
             return null
         },
