@@ -20,10 +20,10 @@
                 </div>
                 <div slot="dropdown" class="dialog">
                     <form v-on:submit.prevent="login">
-                        <span>Enter your information</span>
-                        <input type="text" placeholder="User Name" v-model="inputUser">
+                        <!-- <span>Enter your information</span> -->
+                        <input type="text" placeholder="Your username" v-model="inputUser">
                         <input type="password" placeholder="password" v-model="inputPassword">
-                        <button @click="visible=false">Submit</button>
+                        <input type="submit" value="Submit" @click="visible=false">
                     </form>
                     <span class="small-txt">Need an account? sign up
                         <router-link to="/signup" @click.native="visible=false">here</router-link>.</span>
@@ -71,19 +71,19 @@ export default {
     },
     methods: {
         login() {
-            // axios.get('/users' + userName + '.json')
             const credentials = {
                 userName: this.inputUser,
                 password: this.inputPassword
-                }
-
-            //placeholder login function, just sets user value in the store
-            // this.$router.push('/portfolio')
-            this.$store.dispatch('login', credentials);
+            }
+            this.$store.dispatch('login', credentials);            
+            this.$router.push('/portfolio');
 
         },
         logout() {
-            this.$store.dispatch('logout');
+            if (confirm("Are you sure you want to log out?")) {
+                this.$store.dispatch('logout');
+            }
+
         }
     },
 
@@ -172,10 +172,11 @@ export default {
 }
 
 .dialog {
-    background: #eee;
+    background: $clearLight;
     border: 1px solid #ccc;
     padding: .8rem;
     box-shadow: 1px 1px 6px 0 #999;
+    min-width: 170px;
 }
 
 .login-btn {
@@ -201,4 +202,37 @@ export default {
 .small-txt {
     font-size: .63em;
 }
+
+input[type=text],
+input[type=password],
+select {
+    width: 100%;
+    padding: 5px 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: $dark;
+    color: white;
+    padding: 6px 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: $lighterDark;
+}
+
+// div {
+//     border-radius: 5px;
+//     background-color: #f2f2f2;
+//     padding: 20px;
+// }
 </style>

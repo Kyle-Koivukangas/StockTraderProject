@@ -1,26 +1,30 @@
 <template>
     <div>
-        <div class="title-box">
-            <h1>Sign up here!</h1>
+        <div class="title-box text-center">
+            <h2>Sign up here!</h2>
             <hr>
         </div>
 
         <div class="content">
-            <transition>
-                <form v-on:submit.prevent="createAccount" v-if="!created">
-                    <span>Enter your information</span>
-                    <label for="userName"></label>
-                    <input type="text" placeholder="User Name" value="userName" v-model="userName">
-                    <label for="password"></label>
-                    <input type="password" placeholder="password" value="password" v-model="password">
-                    <label for="password2"></label>
-                    <input type="password" placeholder="password" value="password2" v-model="password2">
-                    <button @click="visible=false">Submit</button>
-                </form>
+            <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                <div>
+                    <form class="signupForm" v-on:submit.prevent="createAccount" v-if="!created">
+                        <label for="name">User name</label>
+                        <input type="text" id="name" placeholder="Your user name.." v-model="userName">
+
+                        <label for="pword">Password</label>
+                        <input type="password" id="pword" placeholder="Your password.." v-model="password">
+
+                        <label for="pword2">Password check</label>
+                        <input type="password" id="pword2" placeholder="Your password again.." v-model="password2">
+
+                        <input type="submit" value="Submit" @click="visible=false">
+                    </form>
+                </div>
             </transition>
 
-            <transition>
-                <div class="created-dialog" v-if="created">
+            <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                <div class="created-dialog text-center" v-if="created">
                     <h3>Account created, log in to access your account!</h3>
                 </div>
             </transition>
@@ -78,5 +82,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/_variables.scss';
+.title-box {
+    font-family: $font1;
+    padding: 0;
+}
+.signupForm {
+    font-family: $font2;
+}
+.content {
+    max-width: 500px;
+    margin: auto;
+}
 
+input[type=text],
+input[type=password],
+ select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: $dark;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: $lighterDark;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
 </style>
