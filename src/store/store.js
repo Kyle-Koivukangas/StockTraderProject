@@ -14,17 +14,22 @@ export default new Vuex.Store({
     state: {
         isLoggedIn: false,
         user: 0,
-        loginStatus: false
+        loginStatus: false,
+        userState: {}
     },
     getters: {
         user: state => {
             return state.user;
         },
         isLoggedIn: state => {
+            //deprecated
             return state.isLoggedIn;
         },
         loginStatus: state => {
             return state.loginStatus
+        },
+        userState: state => {
+            return state.userState
         }
     },
     mutations: {
@@ -33,18 +38,45 @@ export default new Vuex.Store({
         },
         'SET_LOGIN_STATUS'(state, status) {
             state.loginStatus = status;
+        },
+        'SET_USER_STATE'(state, userState) {
+            state.userState = userState
         }
     },
     actions: {
         // setUserRef: VuexFire
-        login({ commit }, userName) {
-            //placeholder login function, need to replace with proper functionality not jsut auto log in user 0
-            alert("logged in");
-            commit('SET_USER', userName);
-            commit('SET_LOGIN_STATUS', true);
+        login(context, { userName, password }) {
+            //Authenticate, GET firebase users/userName/password
+            //this GET request is JUST for the password of the given username to see if the passwords match
+            axios.get('users/' + userName + '/password.json')
+                .then(response => {
+                    //make sure the response is not null or a came back with error
+                    if (!response.data === true || response.status > 400) {
+                        console.log(`HTTP CODE: ${response.status}, if 200 then user doesn't exist.`);
+                        alert("incorrect user name or password, try again");
+                    }
+                    //if passwords match, authentication successfull
+                    else if (response.data === password) {
+                        console.log('Authentication successful!');
+                        //another GET request, this time to get the rest of the users info.
+                        axios.get('users/' + userName + '.json')
+                            .then(response => {
+                                if (response.status < 400) {
+                                    //commit users info to the store and change status to logged in
+                                    context.commit('SET_USER_STATE', response.data);
+                                    context.commit('SET_LOGIN_STATUS', true);
+                                } else {
+                                    console.log(`ERROR GETTING USER STATE FROM SERVER, status code: ${response.status}`);
+                                }
+                            })
+                    } else {
+                        alert('incorrect password, try again');
+                    }
+                })
         },
-        logout({commit}) {
-            //placeholder logout function
+        logout({ commit }) {
+            //clear cached user state and set status to logged out
+            commit('SET_USER_STATE', null);
             commit('SET_LOGIN_STATUS', false);
         },
 
@@ -61,9 +93,9 @@ export default new Vuex.Store({
         grabUserInfo: (context, userId) => {
             console.log('DATA BEFORE AJAX CALL');
             console.log(context.getters.ownedStocks);
-            const userURL = "users/" + userId + ".json";            
+            const userURL = "users/" + userId + ".json";
             const userImport = axios.get(userURL)
-                .then( response => {
+                .then(response => {
                     console.log('HTTP RESPONSE: ');
                     console.log(response);
                     return response.data;
@@ -79,8 +111,8 @@ export default new Vuex.Store({
                     }
                     console.log('OWNED STOCKS');
                     console.log(ownedStocks);
-                    
-                    context.commit('SET_FUNDS', data.funds);                
+
+                    context.commit('SET_FUNDS', data.funds);
                     context.commit('SET_OWNED_STOCKS', data.ownedStocks);
                     context.commit('SET_TRANSACTIONS', data.transactions);
                 })

@@ -21,8 +21,8 @@
                 <div slot="dropdown" class="dialog">
                     <form v-on:submit.prevent="login">
                         <span>Enter your information</span>
-                        <input type="text" placeholder="User Name">
-                        <input type="password" placeholder="password" @keydown.enter="">
+                        <input type="text" placeholder="User Name" v-model="inputUser">
+                        <input type="password" placeholder="password" v-model="inputPassword">
                         <button @click="visible=false">Submit</button>
                     </form>
                     <span class="small-txt">Need an account? sign up
@@ -51,7 +51,7 @@ export default {
             },
             position: ["right", "bottom", "right", "top"],
             visible: false,
-            inputUser: 0,
+            inputUser: null,
             inputPassword: null,
         }
     },
@@ -70,10 +70,16 @@ export default {
         }
     },
     methods: {
-        login(user = 0) {
+        login() {
+            // axios.get('/users' + userName + '.json')
+            const credentials = {
+                userName: this.inputUser,
+                password: this.inputPassword
+                }
+
             //placeholder login function, just sets user value in the store
-            this.$router.push('/portfolio')
-            this.$store.dispatch('login', user);
+            // this.$router.push('/portfolio')
+            this.$store.dispatch('login', credentials);
 
         },
         logout() {
