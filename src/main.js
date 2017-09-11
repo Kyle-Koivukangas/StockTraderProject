@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import firebase from 'firebase'
 
 import App from './App.vue'
 import { routes } from './routes.js'
@@ -11,7 +12,7 @@ import store from './store/store.js'
 Vue.use(VueAxios, axios);
 axios.defaults.baseURL = 'https://vuejscomplete-http.firebaseio.com/';
 
-
+Vue.use(axios);
 Vue.use(VueRouter);
 
 

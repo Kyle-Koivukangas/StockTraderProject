@@ -25,6 +25,7 @@
                         <input type="password" placeholder="password" @keydown.enter="">
                         <button @click="visible=false">Submit</button>
                     </form>
+                    <span class="small-txt">Need an account? sign up <router-link to="/signup" @click.native="visible=false">here</router-link>.</span>
                 </div>
             </dropdown>
 
@@ -186,5 +187,9 @@ export default {
 .nday-btn {
     margin: auto 10px auto 0;
     cursor: pointer;
+}
+
+.small-txt {
+    font-size: .63em;
 }
 </style>
