@@ -25,7 +25,8 @@
                         <input type="password" placeholder="password" @keydown.enter="">
                         <button @click="visible=false">Submit</button>
                     </form>
-                    <span class="small-txt">Need an account? sign up <router-link to="/signup" @click.native="visible=false">here</router-link>.</span>
+                    <span class="small-txt">Need an account? sign up
+                        <router-link to="/signup" @click.native="visible=false">here</router-link>.</span>
                 </div>
             </dropdown>
 
@@ -71,7 +72,9 @@ export default {
     methods: {
         login(user = 0) {
             //placeholder login function, just sets user value in the store
+            this.$router.push('/portfolio')
             this.$store.dispatch('login', user);
+
         },
         logout() {
             this.$store.dispatch('logout');

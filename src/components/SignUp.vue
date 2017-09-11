@@ -6,16 +6,25 @@
         </div>
 
         <div class="content">
-            <form v-on:submit.prevent="createAccount">
-                <span>Enter your information</span>
-                <label for="userName"></label>
-                <input type="text" placeholder="User Name" value="userName" v-model="userName">
-                <label for="password"></label>
-                <input type="password" placeholder="password" value="password" v-model="password">
-                <label for="password2"></label>
-                <input type="password" placeholder="password" value="password2" v-model="password2">
-                <button @click="visible=false">Submit</button>
-            </form>
+            <transition>
+                <form v-on:submit.prevent="createAccount" v-if="!created">
+                    <span>Enter your information</span>
+                    <label for="userName"></label>
+                    <input type="text" placeholder="User Name" value="userName" v-model="userName">
+                    <label for="password"></label>
+                    <input type="password" placeholder="password" value="password" v-model="password">
+                    <label for="password2"></label>
+                    <input type="password" placeholder="password" value="password2" v-model="password2">
+                    <button @click="visible=false">Submit</button>
+                </form>
+            </transition>
+
+            <transition>
+                <div class="created-dialog" v-if="created">
+                    <h3>Account created, log in to access your account!</h3>
+                </div>
+            </transition>
+
         </div>
     </div>
 </template>
@@ -30,7 +39,8 @@ export default {
         return {
             userName: null,
             password: null,
-            password2: null
+            password2: null,
+            created: false
         }
     },
     computed: {
@@ -45,23 +55,23 @@ export default {
         createAccount() {
             //half-assed checks, but whatever
             if (this.userName != null && this.password === this.password2) {
-                // let usersRef = db.ref('users')
-                let userInfo = {}
-                userInfo[this.generateUuid()] = this.accountInfo;
-                console.log(userInfo);
-                axios.patch('users.json', userInfo);
+                axios.get('users/' + this.userName + '.json')
+                    .then(response => {
+                        if (response.data != null) {
+                            alert('User Name Already taken.');
+                        } else {
+                            let userInfo = {};
+                            userInfo[this.userName] = { password: this.password };
+                            axios.patch('users.json', userInfo).then(response => {
+                                console.log(`User Created, status:${response.status}`);
+                                this.created = true;
+                            })
+                        }
+                    })
             } else {
-                alert("Something went wrong, check your username and passwords")
+                alert("Something went wrong, check that your passwords match")
             }
         },
-        generateUuid() {
-            function s4() {
-                return Math.floor((1 + Math.random()) * 0x10000)
-                    .toString(16)
-                    .substring(1);
-            };
-            return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-        }
     },
 
 }
